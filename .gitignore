@@ -102,3 +102,6 @@ dist
 
 # TernJS port file
 .tern-port
+
+# secret-files.js
+src/secret-files.js

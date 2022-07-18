@@ -1,0 +1,19 @@
+{
+  "name": "movie-landing",
+  "version": "1.0.0",
+  "description": "This is an application that connects to an api to be able to present information about movies",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndruTRADX/movie-landing.git"
+  },
+  "author": "andrés rodriguez",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AndruTRADX/movie-landing/issues"
+  },
+  "homepage": "https://github.com/AndruTRADX/movie-landing#readme"
+}
