@@ -258,7 +258,7 @@ article {
   width: 8px;
   height: 8px;
 }
-#id28 { --idColor: var(--yellow); }
+#id28 { --idColor: var(--yellow);}
 #id12 { --idColor: var(--red); }
 #id16 { --idColor: var(--green); }
 #id35 { --idColor: var(--lightBlue); }
