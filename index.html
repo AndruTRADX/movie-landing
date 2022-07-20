@@ -13,17 +13,13 @@
 </head>
 <body>
   <header id="header" class="header-container">
-    <article>
-      <span class="header-arrow inactive">&lt;</span>
-      <h1 class="header-title">ADXMovieDB</h1>
-      <h1 class="header-title header-title--categoryView inactive">Acción</h1>
-    </article>
+    <span class="header-arrow inactive">&lt;</span>
+    <h1 class="header-title">PlatziMovies</h1>
+    <h1 class="header-title header-title--categoryView inactive">Acción</h1>
 
     <form id="searchForm" class="header-searchForm">
-      <input type="text" placeholder="Buscar" />
-      <button>
-        <img src="./assets/lupa.svg">
-      </button>
+      <input type="text" placeholder="Vengadores" />
+      <button id="searchBtn">🔍</button>
     </form>
   </header>
 
@@ -41,19 +37,17 @@
           alt="Nombre de la película"
         />
       </div> -->
-
     </article>
   </section>
 
   <section id="categoriesPreview" class="categoriesPreview-container">
-    <article>
-      <h2 class="categoriesPreview-title">Categorías</h2>
-    </article>
+    <h2 class="categoriesPreview-title">Categorías</h2>
 
     <article class="categoriesPreview-list">
       <!-- <div class="category-container">
         <h3 id="id28" class="category-title">Romance</h3>
       </div> -->
+    </article>
   </section>
 
   <section id="genericList" class="genericList-container inactive">
@@ -134,10 +128,11 @@
     </article>
   </section>
 
-  <footer>Hecho con 💚 por @TheRealADX</footer>
 
+  <footer>Hecho con 💚 por @TheRealADX</footer>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="./src/secret-files.js" type="module"></script>
+  <script src="./src/nodes.js" type="module"></script>
   <script src="./src/main.js" type="module"></script>
   <script src="./src/navigation.js" type="module"></script>
 </body>
