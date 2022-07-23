@@ -3,9 +3,9 @@ import {headerSection,trendingPreviewSection,categoriesPreviewSection,genericSec
   headerCategoryTitle,searchFormInput,searchFormBtn,trendingBtn,movieDetailTitle,movieDetailDescription,movieDetailScore
 } from "./nodes.js";
 
-import {getCategoriesPreview,getTrendingMoviesPreview,getMoviesByCategory,getMoviesBySearch,getTrendingMovies,getMovieById} from "./main.js";
+import {getCategoriesPreview,getTrendingMoviesPreview,getMoviesByCategory,getMoviesBySearch,getTrendingMovies,getMovieById,getPaginatedTrendingMovies,getPaginatedMoviesBySearch,getPaginatedMoviesByCategory} from "./main.js";
 
-import APIKey from './secret-files.js'
+let infiniteScroll;
 
 // Escuchas de eventos
 searchFormBtn.addEventListener('click', ()=> {
@@ -22,9 +22,16 @@ arrowBtn.addEventListener('click',()=>{
 
 window.addEventListener('DOMContentLoaded', navigator, false);
 window.addEventListener('hashchange', navigator, false);
+window.addEventListener('scroll', infiniteScroll, false);
 
 // función principal
-function navigator(){
+function navigator() {
+
+  if (infiniteScroll) {
+    window.removeEventListener('scroll', infiniteScroll, {passive:false});
+    infiniteScroll = undefined;
+  }
+
   if(location.hash.startsWith('#trends')) {
     trendsPage()
   } else if(location.hash.startsWith('#search=')){
@@ -37,6 +44,10 @@ function navigator(){
     homePage()
   }
   window.scrollTo(0,0);
+
+  if (infiniteScroll) {
+    window.addEventListener('scroll', infiniteScroll, {passive:false});
+  }
 }
 
 // funciones individuales
@@ -82,6 +93,7 @@ function categoriesPage() {
   headerCategoryTitle.innerHTML = categoryName.replaceAll('%20',' ')
 
   getMoviesByCategory(categoryId);
+  infiniteScroll = getPaginatedMoviesByCategory(categoryId);
 }
 
 function moviesPage() {
@@ -122,6 +134,8 @@ function searchMoviePage() {
 
   const [_, query] = location.hash.split('=');
   getMoviesBySearch(query);
+
+  infiniteScroll = getPaginatedMoviesBySearch(query);
 }
 
 function trendsPage() {
@@ -142,4 +156,6 @@ function trendsPage() {
 
   getTrendingMovies();
   headerCategoryTitle.innerHTML = 'Tendencias'
+
+  infiniteScroll = getPaginatedTrendingMovies;
 }
