@@ -4,15 +4,59 @@ import APIKey from './secret-files.js';
 let page = 1;
 let maxPage;
 
+// Data
 const api = axios.create({
   baseURL: 'https://api.themoviedb.org/3/',
   headers: {
-    "Content-Type": "application.json;charset=utf-8"
+    "Content-Type": "application.json charset=utf-8"
   },
   params: {
-    "api_key": APIKey
+    "api_key": APIKey,
+    "language": navigator.language || "es-ES"
   },
-})
+});
+
+function likedMovieList() {
+  // variable "item" que sea igual a lo que estamos buscando
+  // como todo dentro de localStorage es un "string", entonces parseamos lo que haya a un objeto
+  const item = JSON.parse(localStorage.getItem('liked_movies'));
+  let movies;
+
+  // preguntamos si "item" tiene cualquier cosa
+  if(item) {
+    // si tiene algo, ese algo lo añadimos a la variable "movies"
+    movies = item;
+  } else {
+    // si no, entonces "movies" es igual a un objeto vacio
+    movies = {};
+  }
+  
+  // al final retornamos la variable "movies"
+  return movies;
+}
+
+function likeMovie(movie) {
+  // identificador de movie = movie.id
+  const likedMovies = likedMovieList();
+
+  // preguntar si la película está en localStorage
+  if (likedMovies[movie.id]) {
+    // si está dentro del localStorage, entonces la eliminamos
+    likedMovies[movie.id] = undefined;
+  } else {
+    // si no, gregar la película a localStorage
+    likedMovies[movie.id] = movie;
+  }
+
+  // actualizamos la información en el localStorage 
+  // le decimos que queremos guardar el objeto en "liked_movies"
+  // pero si queremos guardar un objeto en localStorage tiene que ser un string, entonces usamos "JSON.stringify()"
+  localStorage.setItem('liked_movies',JSON.stringify(likedMovies));
+
+  // Volvemos a llamar estas funciónes ára recargar el DOM
+  getTrendingMoviesPreview()
+  getLikedMovies()
+}
 
 // Utils
 const lazyLoader = new IntersectionObserver((entries)=> {
@@ -36,7 +80,7 @@ function createMovies(movies, container, {lazyLoad = false, clean = true} = {}) 
   
     movieContainer.classList.add('movie-container');
     movieImg.classList.add('movie-img');
-    movieContainer.addEventListener('click',()=>{
+    movieImg.addEventListener('click',()=>{
       location.hash = '#movie='+ movie.id;
     });
 
@@ -48,11 +92,20 @@ function createMovies(movies, container, {lazyLoad = false, clean = true} = {}) 
       movieImg.setAttribute('src','https://media.istockphoto.com/vectors/error-page-or-file-not-found-icon-vector-id924949200?k=20&m=924949200&s=170667a&w=0&h=-g01ME1udkojlHCZeoa1UnMkWZZppdIFHEKk6wMvxrs=')
     });
 
+    const movieButton = document.createElement('button');
+    movieButton.classList.add('movie-btn');
+    likedMovieList()[movie.id] && movieButton.classList.add('movie-btn--liked');
+    movieButton.addEventListener('click', ()=> {
+      movieButton.classList.toggle('movie-btn--liked');
+      likeMovie(movie)
+    });
+
     if (lazyLoad) {
       lazyLoader.observe(movieImg);
     }
 
     movieContainer.appendChild(movieImg);
+    movieContainer.appendChild(movieButton);
     container.appendChild(movieContainer);
   });
 }
@@ -163,11 +216,26 @@ async function getRelatedMoviesById(id) {
   relatedMoviesContainer.scrollTo(0, 0);
 }
 
+function getLikedMovies() {
+  const likedMovies = likedMovieList();
+  const moviesArray = Object.values(likedMovies);
+  const likedMovieListArticle = document.querySelector('.liked-movieList');
+
+  if(moviesArray.length !== 0) {
+    createMovies(moviesArray, likedMovieListArticle, {clean: true, lazyLoad: true});
+  } else {
+    const message = document.createElement('h3');
+    message.innerText = 'Aún no has añadido ningúna película'
+    likedMovieListArticle.innerHTML = '';
+    likedMovieListArticle.appendChild(message);
+  }
+}
+
 // Funciones de Infinite Scroll
 function getPaginatedMoviesByCategory(id) {
   return async function () {
     const {scrollTop,scrollHeight,clientHeight} = document.documentElement;
-    const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 15);
+    const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 20);
     const pageIsNotMax = page < maxPage;
 
     if (scrollIsBottom && pageIsNotMax) {
@@ -189,7 +257,7 @@ function getPaginatedMoviesByCategory(id) {
 function getPaginatedMoviesBySearch(query) {
   return async function () {
     const {scrollTop,scrollHeight,clientHeight} = document.documentElement;
-    const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 15);
+    const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 20);
     const pageIsNotMax = page < maxPage;
 
     if (scrollIsBottom && pageIsNotMax) {
@@ -210,7 +278,7 @@ function getPaginatedMoviesBySearch(query) {
 
 async function getPaginatedTrendingMovies() {
   const {scrollTop,scrollHeight,clientHeight} = document.documentElement;
-  const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 15);
+  const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 20);
   const pageIsNotMax = page < maxPage;
 
   if (scrollIsBottom && pageIsNotMax) {
@@ -227,4 +295,4 @@ async function getPaginatedTrendingMovies() {
   }
 }
 
-export {getCategoriesPreview ,getTrendingMoviesPreview, getMoviesByCategory, getMoviesBySearch,getTrendingMovies,getMovieById,getPaginatedTrendingMovies,getPaginatedMoviesBySearch,getPaginatedMoviesByCategory}
+export {getCategoriesPreview ,getTrendingMoviesPreview, getMoviesByCategory, getMoviesBySearch,getTrendingMovies,getMovieById,getPaginatedTrendingMovies,getPaginatedMoviesBySearch,getPaginatedMoviesByCategory,getLikedMovies}
