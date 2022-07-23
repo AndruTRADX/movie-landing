@@ -236,7 +236,7 @@ function getPaginatedMoviesByCategory(id) {
   return async function () {
     const {scrollTop,scrollHeight,clientHeight} = document.documentElement;
     const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 15);
-    const pageIsNotMax = page < maxPage;
+    let pageIsNotMax = page < maxPage;
 
     if (scrollIsBottom && pageIsNotMax) {
       page++;
@@ -258,7 +258,7 @@ function getPaginatedMoviesBySearch(query) {
   return async function () {
     const {scrollTop,scrollHeight,clientHeight} = document.documentElement;
     const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 20);
-    const pageIsNotMax = page < maxPage;
+    let pageIsNotMax = page < maxPage;
 
     if (scrollIsBottom && pageIsNotMax) {
       page++;
@@ -279,7 +279,7 @@ function getPaginatedMoviesBySearch(query) {
 async function getPaginatedTrendingMovies() {
   const {scrollTop,scrollHeight,clientHeight} = document.documentElement;
   const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 20);
-  const pageIsNotMax = page < maxPage;
+  let pageIsNotMax = page < maxPage;
 
   if (scrollIsBottom && pageIsNotMax) {
     page++;

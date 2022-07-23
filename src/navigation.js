@@ -24,14 +24,15 @@ const likedMovieListArticle = document.querySelector('.liked-container');
 
 window.addEventListener('DOMContentLoaded', navigator, false);
 window.addEventListener('hashchange', navigator, false);
-window.addEventListener('scroll', infiniteScroll, false);
 window.addEventListener('touchmove', infiniteScroll, false);
+window.addEventListener('scroll', infiniteScroll, false);
 
 // función principal
 function navigator() {
 
   if (infiniteScroll) {
     window.removeEventListener('scroll', infiniteScroll, {passive:false});
+    window.removeEventListener('touchmove', infiniteScroll, {passive:false});
     infiniteScroll = undefined;
   }
 
@@ -50,6 +51,7 @@ function navigator() {
 
   if (infiniteScroll) {
     window.addEventListener('scroll', infiniteScroll, {passive:false});
+    window.addEventListener('touchmove', infiniteScroll, {passive:false});
   }
 }
 
