@@ -235,7 +235,7 @@ function getLikedMovies() {
 function getPaginatedMoviesByCategory(id) {
   return async function () {
     const {scrollTop,scrollHeight,clientHeight} = document.documentElement;
-    const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 20);
+    const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 25);
     const pageIsNotMax = page < maxPage;
 
     if (scrollIsBottom && pageIsNotMax) {
