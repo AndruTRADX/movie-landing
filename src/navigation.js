@@ -25,6 +25,7 @@ const likedMovieListArticle = document.querySelector('.liked-container');
 window.addEventListener('DOMContentLoaded', navigator, false);
 window.addEventListener('hashchange', navigator, false);
 window.addEventListener('scroll', infiniteScroll, false);
+window.addEventListener('touchmove', infiniteScroll, false);
 
 // función principal
 function navigator() {
