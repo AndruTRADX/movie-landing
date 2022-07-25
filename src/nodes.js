@@ -11,6 +11,7 @@ const trendingMoviesPreviewList = document.querySelector('.trendingPreview-movie
 const categoriesPreviewList = document.querySelector('.categoriesPreview-list');
 const movieDetailCategoriesList = document.querySelector('#movieDetail .categories-list');
 const relatedMoviesContainer = document.querySelector('.relatedMovies-scrollContainer');
+const likedMovieListArticle = document.querySelector('.liked-container');
 
 // Elements
 const headerTitle = document.querySelector('.header-title');
@@ -26,7 +27,3 @@ const movieDetailTitle = document.querySelector('.movieDetail-title');
 const movieDetailDescription = document.querySelector('.movieDetail-description');
 const movieDetailScore = document.querySelector('.movieDetail-score');
 
-export {headerSection,trendingPreviewSection,categoriesPreviewSection,genericSection,movieDetailSection,searchForm,
-  trendingMoviesPreviewList,categoriesPreviewList,movieDetailCategoriesList,relatedMoviesContainer,headerTitle,arrowBtn,
-  headerCategoryTitle,searchFormInput,searchFormBtn,trendingBtn,movieDetailTitle,movieDetailDescription,movieDetailScore
-}

@@ -1,10 +1,3 @@
-import {headerSection,trendingPreviewSection,categoriesPreviewSection,genericSection,movieDetailSection,searchForm,
-  trendingMoviesPreviewList,categoriesPreviewList,movieDetailCategoriesList,relatedMoviesContainer,headerTitle,arrowBtn,
-  headerCategoryTitle,searchFormInput,searchFormBtn,trendingBtn,movieDetailTitle,movieDetailDescription,movieDetailScore
-} from "./nodes.js";
-
-import {getCategoriesPreview,getTrendingMoviesPreview,getMoviesByCategory,getMoviesBySearch,getTrendingMovies,getMovieById,getPaginatedTrendingMovies,getPaginatedMoviesBySearch,getPaginatedMoviesByCategory,getLikedMovies} from "./main.js";
-
 let infiniteScroll;
 
 // Escuchas de eventos
@@ -20,19 +13,15 @@ arrowBtn.addEventListener('click',()=>{
   history.back();
 });
 
-const likedMovieListArticle = document.querySelector('.liked-container');
-
 window.addEventListener('DOMContentLoaded', navigator, false);
 window.addEventListener('hashchange', navigator, false);
-window.addEventListener('touchmove', infiniteScroll, false);
-// window.addEventListener('scroll', infiniteScroll, false);
+window.addEventListener('scroll', infiniteScroll, false);
 
 // función principal
 function navigator() {
 
   if (infiniteScroll) {
-    // window.removeEventListener('scroll', infiniteScroll, {passive:false});
-    window.removeEventListener('touchmove', infiniteScroll, {passive:false});
+    window.removeEventListener('scroll', infiniteScroll, {passive:false});
     infiniteScroll = undefined;
   }
 
@@ -50,8 +39,7 @@ function navigator() {
   window.scrollTo(0,0);
 
   if (infiniteScroll) {
-    // window.addEventListener('scroll', infiniteScroll, {passive:false});
-    window.addEventListener('touchmove', infiniteScroll, {passive:false});
+    window.addEventListener('scroll', infiniteScroll, {passive:false});
   }
 }
 

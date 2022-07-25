@@ -1,6 +1,3 @@
-import { genericSection, relatedMoviesContainer } from './nodes.js';
-import APIKey from './secret-files.js';
-
 let page = 1;
 let maxPage;
 
@@ -235,8 +232,9 @@ function getLikedMovies() {
 function getPaginatedMoviesByCategory(id) {
   return async function () {
     const {scrollTop,scrollHeight,clientHeight} = document.documentElement;
-    const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 15);
+    const scrollIsBottom = scrollTop + clientHeight >= scrollHeight - 5;
     let pageIsNotMax = page < maxPage;
+    console.log(scrollIsBottom && pageIsNotMax);
 
     if (scrollIsBottom && pageIsNotMax) {
       page++;
@@ -257,7 +255,7 @@ function getPaginatedMoviesByCategory(id) {
 function getPaginatedMoviesBySearch(query) {
   return async function () {
     const {scrollTop,scrollHeight,clientHeight} = document.documentElement;
-    const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 20);
+    const scrollIsBottom = scrollTop + clientHeight >= scrollHeight - 5;
     let pageIsNotMax = page < maxPage;
 
     if (scrollIsBottom && pageIsNotMax) {
@@ -278,7 +276,7 @@ function getPaginatedMoviesBySearch(query) {
 
 async function getPaginatedTrendingMovies() {
   const {scrollTop,scrollHeight,clientHeight} = document.documentElement;
-  const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 20);
+  const scrollIsBottom = scrollTop + clientHeight >= scrollHeight - 5;
   let pageIsNotMax = page < maxPage;
 
   if (scrollIsBottom && pageIsNotMax) {
@@ -294,5 +292,3 @@ async function getPaginatedTrendingMovies() {
     createMovies(movies, genericSection, {lazyLoad:true, clean:false});
   }
 }
-
-export {getCategoriesPreview ,getTrendingMoviesPreview, getMoviesByCategory, getMoviesBySearch,getTrendingMovies,getMovieById,getPaginatedTrendingMovies,getPaginatedMoviesBySearch,getPaginatedMoviesByCategory,getLikedMovies}
