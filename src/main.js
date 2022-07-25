@@ -235,7 +235,7 @@ function getPaginatedMoviesByCategory(id) {
     let pageIsNotMax = page <= maxPage;
     console.log(scrollIsBottom && pageIsNotMax);
 
-    if (scrollIsBottom && pageIsNotMax) {
+    if (scrollIsBottom) {
       page++;
   
       const {data} = await api('discover/movie',{
@@ -257,7 +257,7 @@ function getPaginatedMoviesBySearch(query) {
     const scrollIsBottom = scrollTop + clientHeight >= scrollHeight - 5;
     let pageIsNotMax = page <= maxPage;
 
-    if (scrollIsBottom && pageIsNotMax) {
+    if (scrollIsBottom) {
       page++;
   
       const {data} = await api('search/movie',{
@@ -278,7 +278,7 @@ async function getPaginatedTrendingMovies() {
   const scrollIsBottom = scrollTop + clientHeight >= scrollHeight - 5;
   let pageIsNotMax = page <= maxPage;
 
-  if (scrollIsBottom && pageIsNotMax) {
+  if (scrollIsBottom) {
     page++;
   
     const {data} = await api('trending/movie/day',{
