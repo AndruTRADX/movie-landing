@@ -1,4 +1,3 @@
-let page = 1;
 let maxPage;
 
 // Data
@@ -231,9 +230,9 @@ function getLikedMovies() {
 // Funciones de Infinite Scroll
 function getPaginatedMoviesByCategory(id) {
   return async function () {
-    const {scrollTop,scrollHeight,clientHeight} = document.documentElement;
+    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
     const scrollIsBottom = scrollTop + clientHeight >= scrollHeight - 5;
-    let pageIsNotMax = page < maxPage;
+    let pageIsNotMax = page <= maxPage;
     console.log(scrollIsBottom && pageIsNotMax);
 
     if (scrollIsBottom && pageIsNotMax) {
@@ -254,9 +253,9 @@ function getPaginatedMoviesByCategory(id) {
 
 function getPaginatedMoviesBySearch(query) {
   return async function () {
-    const {scrollTop,scrollHeight,clientHeight} = document.documentElement;
+    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
     const scrollIsBottom = scrollTop + clientHeight >= scrollHeight - 5;
-    let pageIsNotMax = page < maxPage;
+    let pageIsNotMax = page <= maxPage;
 
     if (scrollIsBottom && pageIsNotMax) {
       page++;
@@ -268,18 +267,18 @@ function getPaginatedMoviesBySearch(query) {
         }
       });
 
-    const movies = data.results;
-    createMovies(movies, genericSection, {lazyLoad:true, clean:false});
-  } 
+      const movies = data.results;
+      createMovies(movies, genericSection, {lazyLoad:true, clean:false});
+    } 
   }
 }
 
 async function getPaginatedTrendingMovies() {
-  const {scrollTop,scrollHeight,clientHeight} = document.documentElement;
+  const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
   const scrollIsBottom = scrollTop + clientHeight >= scrollHeight - 5;
-  let pageIsNotMax = page < maxPage;
+  let pageIsNotMax = page <= maxPage;
 
-  if (scrollIsBottom && pageIsNotMax) {
+  if (scrollIsBottom && pageIsNotMax) {W
     page++;
   
     const {data} = await api('trending/movie/day',{

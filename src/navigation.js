@@ -1,3 +1,4 @@
+let page = 1;
 let infiniteScroll;
 
 // Escuchas de eventos
