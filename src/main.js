@@ -278,7 +278,7 @@ async function getPaginatedTrendingMovies() {
   const scrollIsBottom = scrollTop + clientHeight >= scrollHeight - 5;
   let pageIsNotMax = page <= maxPage;
 
-  if (scrollIsBottom && pageIsNotMax) {W
+  if (scrollIsBottom && pageIsNotMax) {
     page++;
   
     const {data} = await api('trending/movie/day',{
