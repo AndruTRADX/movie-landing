@@ -39,6 +39,9 @@ function navigator() {
   }
   window.scrollTo(0,0);
 
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+
   if (infiniteScroll) {
     window.addEventListener('scroll', infiniteScroll, {passive:false});
   }
